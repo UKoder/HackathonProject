@@ -1,0 +1,46 @@
+<link rel='stylesheet' href="member.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Club Member Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    Club Member Portal
+  </header>
+
+  <div class="search-container">
+    <input type="search" placeholder="Search Club Member / Staffs..." class="search-input" />
+    <button class="search-btn">Search</button>
+  </div>
+
+  <div class="member-section">
+    <div class="member-card">
+      <h3>John Doe</h3>
+      <p>Rotaract Club</p>
+    </div>
+    <div class="member-card">
+      <h3>Jane Smith</h3>
+      <p>Women in STEM</p>
+    </div>
+    <div class="member-card">
+      <h3>Arjun Kumar</h3>
+      <p>STEAM Club</p>
+    </div>
+    <div class="member-card">
+      <h3>Priya Nair</h3>
+      <p>Podcast Team</p>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('.search-btn').addEventListener('click', () => {
+      const value = document.querySelector('.search-input').value.trim();
+      alert(`Searching for: ${value}`);
+    });
+  </script>
+</body>
+</html>

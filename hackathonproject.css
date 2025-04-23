@@ -1,0 +1,101 @@
+body{
+    background-image: url(https://images.shiksha.com/mediadata/images/1622713798phpEVkE86.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    font-family: 'Poppins',sans-serif;
+}
+body::before{
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: -1;
+}
+.search{
+    border-radius: 10px 0 0 10px;
+    border: solid;
+    border-color: #4169E1;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    height: 50px;
+    width : 60%;
+    padding: 20px;
+    font-family: 'Poppins',sans-serif;
+}
+.searchbutton {
+    border-radius: 0 10px 10px 0;
+    border: none;
+    background-color: #4169E1;
+    color: white;
+    padding: 0 20px;
+    font-family: 'Poppins',sans-serif;
+}
+.searchbutton:hover {
+    background-color: #1E90FF;
+    box-shadow: 0 0 10px;
+}
+.searchdiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+}
+.searchbutton{
+    height: 50px;
+    cursor: pointer;
+}
+.ritimg{
+    background: white;
+    height: 110px;
+    width: 300px;
+}
+.ritimgdiv{
+    display: inline-block;
+}
+.portal-box {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-25%);
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 2px solid #4169E1;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  padding: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 200px;
+}
+
+.portal-option {
+  text-align: center;
+  padding: 10px 15px;
+  border-radius: 10px;
+  background-color: #4169E1;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.portal-option:hover {
+  background-color: #1E90FF;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #1E90FF;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        display: block;
+        width: 90%;
+        margin: 10px auto;
+        text-align: center;
+    }
+    .search {
+        width: 80%;
+    }
+}

@@ -1,0 +1,103 @@
+* {
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom right, #f5f9ff, #dceeff);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      background-color: #4169E1;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 40px auto;
+      width: 90%;
+      max-width: 600px;
+      background-color: white;
+      border-radius: 50px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .search-container:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      padding: 15px 20px;
+      font-size: 16px;
+      border-radius: 50px 0 0 50px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+      background-color: #f5f9ff;
+    }
+
+    .search-btn {
+      background-color: #4169E1;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      font-size: 16px;
+      border-radius: 0 50px 50px 0;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .search-btn:hover {
+      background-color: #1E90FF;
+      transform: scale(1.05);
+    }
+
+    .member-section {
+      width: 90%;
+      max-width: 1000px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .member-card {
+      background-color: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .member-card:hover {
+      transform: scale(1.05);
+      cursor: pointer;
+    }
+
+    .member-card h3 {
+      margin: 0 0 10px;
+      color: #4169E1;
+    }
+
+    .member-card p {
+      margin: 0;
+      color: #333;
+    }
