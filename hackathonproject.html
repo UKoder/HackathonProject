@@ -1,11 +1,399 @@
-<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-<link rel="stylesheet" href=hackathonproject.css>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Club Showcase Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            margin: 0;
+            min-height: 100vh;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: bottom;
+            background-image: url('https://images.shiksha.com/mediadata/images/1622713798phpEVkE86.jpeg');
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            z-index: -1;
+        }
+        .ritimg {
+            background: white;
+            height: 110px;
+            width: 300px;
+            object-fit: contain;
+        }
+        .ritimgdiv {
+            display: inline-block;
+        }
+        .portal-box {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-25%);
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 2px solid #4169E1;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            padding: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 200px;
+        }
+        .portal-option {
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 10px;
+            background-color: #4169E1;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+        }
+        .portal-option:hover, .portal-option:focus {
+            background-color: #1E90FF;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #1E90FF;
+            outline: none;
+        }
+        .dropdownclubs {
+            position: relative;
+        }
+        .dropdown-menu {
+            background-color: azure;
+            box-shadow: 10px 10px 24px black;
+            border: solid 2px white;
+            border-radius: 25px;
+            position: absolute;
+            top: 50%;
+            left: -100%;
+            transform: translateY(-50%);
+            margin-left: -8px;
+            display: none;
+            width: max-content;
+            min-width: 220px;
+            z-index: 1100;
+            padding: 10px 15px;
+        }
+        .dropdown-menu .category {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .dropdown-menu .category:last-child {
+            margin-bottom: 0;
+        }
+        .dropdown-menu .category h3 {
+            font-weight: 700;
+            color: #4169E1;
+            margin-bottom: 8px;
+            border-bottom: 2px solid #4169E1;
+            padding-bottom: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding-left: 20px;
+        }
+        .dropdown-menu .category h3::before {
+            content: "\f104";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        .dropdown-menu a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            padding: 8px 12px;
+            background-color: #4169E1;
+            border: solid 1px white;
+            border-radius: 50px;
+            box-shadow: 2px 2px 10px black;
+            text-align: center;
+            transition: 0.2s;
+            margin-bottom: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+        }
+        .dropdown-menu a:last-child {
+            margin-bottom: 0;
+        }
+        .dropdown-menu a:hover, .dropdown-menu a:focus {
+            transform: scale(1.02);
+            background-color: #1E90FF;
+            outline: none;
+        }
+        /* Sub-dropdown styles */
+        .sub-dropdown {
+            position: absolute;
+            top: 50%;
+            left: -100%;
+            transform: translateY(-50%);
+            margin-left: -8px;
+            background-color: azure;
+            border: solid 2px white;
+            border-radius: 25px;
+            box-shadow: 10px 10px 24px black;
+            min-width: 180px;
+            padding: 10px 15px;
+            display: none;
+            z-index: 1200;
+        }
+        .dropdown-menu .category.open > .sub-dropdown,
+        .dropdown-menu .category:focus-within > .sub-dropdown {
+            display: block;
+        }
+        .sub-dropdown a {
+            margin-bottom: 6px;
+            border-radius: 50px;
+            padding: 8px 12px;
+            background-color: #4169E1;
+            color: white;
+            font-weight: 600;
+            box-shadow: 2px 2px 10px black;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+        .sub-dropdown a:last-child {
+            margin-bottom: 0;
+        }
+        .sub-dropdown a:hover, .sub-dropdown a:focus {
+            background-color: #1E90FF;
+            transform: scale(1.02);
+            outline: none;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .portal-box {
+                position: static;
+                transform: none;
+                width: 90%;
+                margin: 20px auto;
+                box-shadow: none;
+                border: none;
+                background-color: rgba(255,255,255,0.95);
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                border: none;
+                background-color: transparent;
+                display: none !important;
+                flex-wrap: wrap;
+                gap: 10px;
+                width: 100%;
+                margin-top: 5px;
+                padding: 0;
+                transform: none;
+                top: auto;
+                left: auto;
+            }
+            .dropdownclubs:hover .dropdown-menu,
+            .dropdownclubs:focus-within .dropdown-menu {
+                display: flex !important;
+            }
+            .dropdown-menu .category {
+                margin-bottom: 0;
+                flex: 1 1 100%;
+                position: static;
+                padding: 0;
+                border: none;
+                box-shadow: none;
+            }
+            .dropdown-menu .category h3 {
+                border: none;
+                color: #4169E1;
+                margin-bottom: 5px;
+                font-size: 1rem;
+                cursor: pointer;
+                padding-left: 0;
+            }
+            .dropdown-menu .category h3::before {
+                content: none;
+            }
+            .dropdown-menu .category.open > .sub-dropdown,
+            .dropdown-menu .category:focus-within > .sub-dropdown {
+                display: block;
+                position: static;
+                box-shadow: none;
+                border: none;
+                background-color: transparent;
+                padding: 0;
+                margin: 0 0 10px 0;
+                transform: none;
+                width: 100%;
+            }
+            .dropdown-menu a {
+                background-color: #4169E1;
+                border-radius: 10px;
+                box-shadow: none;
+                padding: 8px 12px;
+                margin-bottom: 0;
+                flex: 1 1 auto;
+                font-weight: 600;
+                position: relative;
+            }
+            .sub-dropdown {
+                position: static;
+                box-shadow: none;
+                border: none;
+                background-color: transparent;
+                display: none !important;
+                padding: 0;
+                margin: 0;
+                min-width: auto;
+                box-shadow: none;
+            }
+            .sub-dropdown a {
+                background-color: #4169E1;
+                border-radius: 10px;
+                box-shadow: none;
+                padding: 8px 12px;
+                margin-bottom: 0;
+                flex: 1 1 auto;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const clubShowcase = document.querySelector('.dropdownclubs > .portal-option');
+            const dropdownMenu = document.getElementById('club-dropdown');
+            const categories = dropdownMenu.querySelectorAll('.category');
+
+            // Toggle main dropdown menu on Club Showcase click
+            clubShowcase.addEventListener('click', e => {
+                e.preventDefault();
+                if (dropdownMenu.style.display === 'block' || dropdownMenu.style.display === 'flex') {
+                    dropdownMenu.style.display = 'none';
+                    clubShowcase.setAttribute('aria-expanded', 'false');
+                    // Close all submenus
+                    categories.forEach(cat => cat.classList.remove('open'));
+                } else {
+                    dropdownMenu.style.display = window.innerWidth <= 768 ? 'flex' : 'block';
+                    clubShowcase.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            // Close dropdown if clicked outside
+            document.addEventListener('click', e => {
+                if (!clubShowcase.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.style.display = 'none';
+                    clubShowcase.setAttribute('aria-expanded', 'false');
+                    categories.forEach(cat => cat.classList.remove('open'));
+                }
+            });
+
+            // Toggle submenus on category header click
+            categories.forEach(category => {
+                const header = category.querySelector('h3');
+                header.addEventListener('click', e => {
+                    e.stopPropagation();
+                    const isOpen = category.classList.contains('open');
+                    // Close all other categories
+                    categories.forEach(cat => cat.classList.remove('open'));
+                    if (!isOpen) {
+                        category.classList.add('open');
+                    }
+                });
+                // Keyboard accessibility for category headers
+                header.setAttribute('tabindex', '0');
+                header.addEventListener('keydown', e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        header.click();
+                    }
+                    if (e.key === 'Escape') {
+                        category.classList.remove('open');
+                        header.focus();
+                    }
+                });
+            });
+        });
+    </script>
+</head>
 <body>
-    <div class="ritimgdiv"><a href="https://ritchennai.org/index.php" target="_blank"><img src="https://ritchennai.org/admissions/image/rit-logo-new.png" class="ritimg"></a></div>
-    
+    <div class="ritimgdiv">
+        <a href="https://ritchennai.org/index.php" target="_blank" rel="noopener noreferrer">
+            <img src="https://ritchennai.org/admissions/image/rit-logo-new.png" alt="RIT Chennai official logo with blue and white colors" class="ritimg" />
+        </a>
+    </div>
+
     <div class="portal-box">
-        <div class="dropdownclubs"><a href="public.html" class="portal-option">&lArr; Club Showcase </a><div class="dropdown-menu"><a href="">UBA</a><a href="">YUVA</a><a href="">NSS</a><a href="">WEC</a><a href="">Artist League</a><a href="">Rotaract</a><a href="">Tamil club</a><a href="">Telugu club</a><a href="">Fusion</a><a href="">YRC</a><a href="">Techsparks</a><a href="">Infinitus</a><a href="">Steam club</a><a href="">Photography</a><a href="">Podcast</a><a href="">nippon</a><a href="">Women Empowerment</a><a href="">Mediastic Hub</a></div></div>
+        <div class="dropdownclubs">
+            <a href="#" class="portal-option" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-controls="club-dropdown" role="button">
+               <i class="fas fa-caret-left ml-2"> </i> Clubs 
+            </a>
+            <div class="dropdown-menu" id="club-dropdown" aria-label="Club categories dropdown menu" role="menu" tabindex="-1">
+                <div class="category" role="group" aria-labelledby="tech-category">
+                    <h3 id="tech-category">Technology</h3>
+                    <div class="sub-dropdown" role="menu" aria-label="Technology clubs submenu">
+                        <a href="#" role="menuitem" tabindex="-1">Techsparks</a>
+                        <a href="#" role="menuitem" tabindex="-1">Infinitus</a>
+                        <a href="#" role="menuitem" tabindex="-1">Steam club</a>
+                        <a href="#" role="menuitem" tabindex="-1">Podcast</a>
+                    </div>
+                </div>
+                <div class="category" role="group" aria-labelledby="entertainment-category">
+                    <h3 id="entertainment-category">Entertainment</h3>
+                    <div class="sub-dropdown" role="menu" aria-label="Entertainment clubs submenu">
+                        <a href="#" role="menuitem" tabindex="-1">Artist League</a>
+                        <a href="#" role="menuitem" tabindex="-1">Photography</a>
+                        <a href="#" role="menuitem" tabindex="-1">Mediastic Hub</a>
+                    </div>
+                </div>
+                <div class="category" role="group" aria-labelledby="social-category">
+                    <h3 id="social-category">Social Service Clubs</h3>
+                    <div class="sub-dropdown" role="menu" aria-label="Social Service clubs submenu">
+                        <a href="#" role="menuitem" tabindex="-1">UBA</a>
+                        <a href="#" role="menuitem" tabindex="-1">YUVA</a>
+                        <a href="#" role="menuitem" tabindex="-1">NSS</a>
+                        <a href="#" role="menuitem" tabindex="-1">WEC</a>
+                        <a href="#" role="menuitem" tabindex="-1">Rotaract</a>
+                        <a href="#" role="menuitem" tabindex="-1">YRC</a>
+                        <a href="#" role="menuitem" tabindex="-1">Women Empowerment</a>
+                    </div>
+                </div>
+                <div class="category" role="group" aria-labelledby="language-category">
+                    <h3 id="language-category">Language Club</h3>
+                    <div class="sub-dropdown" role="menu" aria-label="Language clubs submenu">
+                        <a href="#" role="menuitem" tabindex="-1">Fusion Club</a>
+                        <a href="#" role="menuitem" tabindex="-1">Tamil Club</a>
+                        <a href="#" role="menuitem" tabindex="-1">Telugu Club</a>
+                        <a href="#" role="menuitem" tabindex="-1">Nippon Club Club</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <a href="member.html" class="portal-option">Member Portal</a>
         <a href="admin.html" class="portal-option">Admin Portal</a>
     </div>
 </body>
+</html>
