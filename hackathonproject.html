@@ -14,7 +14,7 @@
             min-height: 100vh;
             background-repeat: no-repeat;
             background-size: cover;
-            background-position: bottom;
+            background-position: bottom center;
             background-image: url('https://images.shiksha.com/mediadata/images/1622713798phpEVkE86.jpeg');
         }
         body::before {
@@ -26,6 +26,15 @@
             background: rgba(255, 255, 255, 0.3);
             z-index: -1;
         }
+        .top-banner {
+            width: 100%;
+            max-height: 180px;
+            object-fit: cover;
+            user-select: none;
+            display: block;
+            position: relative;
+            z-index: 10;
+        }
         .ritimg {
             background: white;
             height: 110px;
@@ -34,6 +43,9 @@
         }
         .ritimgdiv {
             display: inline-block;
+            margin: 15px 20px;
+            z-index: 1100;
+            position: relative;
         }
         .portal-box {
             position: absolute;
@@ -186,6 +198,54 @@
             transform: scale(1.02);
             outline: none;
         }
+        /* Slideshow container */
+        .slideshow-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 420px;
+            max-width: 90vw;
+            height: 280px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(0,0,0,0.35);
+            z-index: 1000;
+            background-color: white;
+        }
+        .slideshow-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            user-select: none;
+        }
+        .slideshow-controls {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 15px;
+            pointer-events: none;
+        }
+        .slideshow-button {
+            background-color: rgba(65, 105, 225, 0.75);
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            padding: 8px 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: background-color 0.3s ease;
+            user-select: none;
+        }
+        .slideshow-button:hover, .slideshow-button:focus {
+            background-color: #1E90FF;
+            outline: none;
+        }
         /* Responsive */
         @media (max-width: 768px) {
             .portal-box {
@@ -280,6 +340,27 @@
                 margin-bottom: 0;
                 flex: 1 1 auto;
             }
+            .slideshow-container {
+                position: static;
+                width: 100%;
+                height: 220px;
+                margin: 10px auto 0 auto;
+                transform: none;
+                border-radius: 10px;
+            }
+            .slideshow-image {
+                border-radius: 10px;
+            }
+            .slideshow-controls {
+                padding: 0 5px;
+            }
+            .slideshow-button {
+                font-size: 1.5rem;
+                padding: 6px 10px;
+            }
+            .ritimgdiv {
+                margin: 10px 0 0 0;
+            }
         }
     </style>
     <script>
@@ -336,14 +417,80 @@
                     }
                 });
             });
+
+            // Slideshow logic
+            const images = [
+                {src: "https://ritchennai.org/images/UBA/4.jpg", alt: "Students participating in UBA social service activities, group photo with smiles and community engagement"},
+                {src: "https://ritchennai.org/images/yuva/3.jpg", alt: "YUVA club members engaged in youth empowerment event, vibrant group with banners and enthusiasm"},
+                {src: "https://ritchennai.org/images/nss/1.jpg", alt: "NSS volunteers in action during a community cleanliness drive, wearing NSS uniforms and gloves"},
+                {src: "https://ritchennai.org/images/rota/1.jpg", alt: "Rotaract club members organizing a charity event, group photo with donation boxes and happy faces"},
+                {src: "https://ritchennai.org/images/wstem/2.jpg", alt: "Women Empowerment club members conducting a workshop, women leaders speaking to an attentive audience"},
+                {src: "https://ritchennai.org/images/techspark/3.jpg", alt: "Techsparks club members showcasing a robotics project, students working with electronic components"},
+                {src: "https://ritchennai.org/images/infinitus/2.jpg", alt: "Infinitus club members presenting a tech innovation, young adults demonstrating a software application"},
+                {src: "https://ritchennai.org/images/steam/3.jpg", alt: "Steam club students experimenting with science projects, colorful lab setup with focused participants"},
+                {src: "https://ritchennai.org/images/fusion/4.jpg", alt: "Fusion Club members performing a cultural dance, traditional costumes and dynamic stage presence"},
+                {src: "https://ritchennai.org/images/vaarthi/3.jpg", alt: "Tamil Club members celebrating Tamil culture, group photo with traditional attire and decorations"},
+                {src: "https://ritchennai.org/images/artist/5.jpg", alt: "Artist League members painting a mural, creative expressions with brushes and vibrant colors"},
+                {src: "https://ritchennai.org/images/photography/6.jpg", alt: "Photography club members capturing campus life, students with cameras in scenic outdoor locations"},
+                {src: "https://ritchennai.org/images/nip/3.jpg", alt: "Nippon Club members practicing Japanese calligraphy, focused individuals with brushes and ink"},
+                {src: "https://ritchennai.org/images/Telugu-Club/2.jpg", alt: "Telugu Club members participating in cultural event, traditional attire and group celebration"},
+            ];
+
+            let currentIndex = 0;
+            const slideshowImage = document.getElementById('slideshow-image');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            function showImage(index) {
+                const img = images[index];
+                slideshowImage.src = img.src;
+                slideshowImage.alt = img.alt;
+            }
+
+            function showNext() {
+                currentIndex = (currentIndex + 1) % images.length;
+                showImage(currentIndex);
+            }
+
+            function showPrev() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                showImage(currentIndex);
+            }
+
+            prevBtn.addEventListener('click', () => {
+                showPrev();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                showNext();
+            });
+
+            // Auto slide every 5 seconds
+            let slideInterval = setInterval(showNext, 5000);
+
+            // Pause on hover
+            const slideshowContainer = document.querySelector('.slideshow-container');
+            slideshowContainer.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            slideshowContainer.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(showNext, 5000);
+            });
+
+            // Initialize first image
+            showImage(currentIndex);
         });
     </script>
 </head>
 <body>
-    <div class="ritimgdiv">
-        <a href="https://ritchennai.org/index.php" target="_blank" rel="noopener noreferrer">
-            <img src="https://ritchennai.org/admissions/image/rit-logo-new.png" alt="RIT Chennai official logo with blue and white colors" class="ritimg" />
-        </a>
+    <img src="https://ritchennai.org/img/Top-banner.jpg" alt="Top banner image showing RIT Chennai campus with blue sky and greenery" class="top-banner" />
+
+    <div class="slideshow-container" aria-label="Club images slideshow" role="region">
+        <img id="slideshow-image" class="slideshow-image" src="" alt="" />
+        <div class="slideshow-controls">
+            <button id="prev-btn" class="slideshow-button" aria-label="Previous image" type="button"><i class="fas fa-chevron-left"></i></button>
+            <button id="next-btn" class="slideshow-button" aria-label="Next image" type="button"><i class="fas fa-chevron-right"></i></button>
+        </div>
     </div>
 
     <div class="portal-box">
