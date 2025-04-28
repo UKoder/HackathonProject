@@ -23,7 +23,7 @@
             top: 0; left: 0;
             height: 100%;
             width: 100%;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.5);
             z-index: -1;
         }
         .top-banner {
@@ -201,24 +201,35 @@
         /* Slideshow container */
         .slideshow-container {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 420px;
-            max-width: 90vw;
-            height: 280px;
-            border-radius: 15px;
-            overflow: hidden;
+            top: 180px;
+            left: 20px; /* moved right slightly */
+            width: 50vw;
+            max-width: 700px;
+            height: 50vh;
+            max-height: 600px;
+            border-radius: 20px;
+            overflow: visible;
             box-shadow: 0 0 25px rgba(0,0,0,0.35);
-            z-index: 1000;
-            background-color: white;
+            z-index: 900;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .slideshow-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 15px;
+            filter: brightness(1.15) saturate(1.1);
             user-select: none;
+            border-radius: 20px;
+            transition: filter 0.3s ease;
+            box-shadow: 0 0 15px rgba(0,0,0,0.25);
+            background-color: white;
+        }
+        .slideshow-image:hover, .slideshow-image:focus {
+            filter: brightness(1.25) saturate(1.2);
+            outline: none;
         }
         .slideshow-controls {
             position: absolute;
@@ -229,22 +240,25 @@
             justify-content: space-between;
             padding: 0 15px;
             pointer-events: none;
+            z-index: 1001;
         }
         .slideshow-button {
             background-color: rgba(65, 105, 225, 0.75);
             border: none;
             color: white;
-            font-size: 1.8rem;
-            padding: 8px 14px;
+            font-size: 3rem;
+            padding: 14px 20px;
             border-radius: 50%;
             cursor: pointer;
             pointer-events: auto;
             transition: background-color 0.3s ease;
             user-select: none;
+            box-shadow: 0 0 10px rgba(65,105,225,0.7);
         }
         .slideshow-button:hover, .slideshow-button:focus {
             background-color: #1E90FF;
             outline: none;
+            box-shadow: 0 0 15px #1E90FF;
         }
         /* Responsive */
         @media (max-width: 768px) {
@@ -260,6 +274,7 @@
                 justify-content: center;
                 flex-wrap: wrap;
                 gap: 10px;
+                z-index: 1100;
             }
             .dropdown-menu {
                 position: static;
@@ -343,20 +358,24 @@
             .slideshow-container {
                 position: static;
                 width: 100%;
-                height: 220px;
-                margin: 10px auto 0 auto;
+                height: 300px;
+                margin: 0 auto 10px auto;
                 transform: none;
                 border-radius: 10px;
+                box-shadow: 0 0 15px rgba(0,0,0,0.25);
+                background-color: transparent;
             }
             .slideshow-image {
                 border-radius: 10px;
+                filter: brightness(1.15) saturate(1.1);
+                box-shadow: 0 0 10px rgba(0,0,0,0.2);
             }
             .slideshow-controls {
                 padding: 0 5px;
             }
             .slideshow-button {
-                font-size: 1.5rem;
-                padding: 6px 10px;
+                font-size: 2rem;
+                padding: 10px 14px;
             }
             .ritimgdiv {
                 margin: 10px 0 0 0;
@@ -486,7 +505,7 @@
     <img src="https://ritchennai.org/img/Top-banner.jpg" alt="Top banner image showing RIT Chennai campus with blue sky and greenery" class="top-banner" />
 
     <div class="slideshow-container" aria-label="Club images slideshow" role="region">
-        <img id="slideshow-image" class="slideshow-image" src="" alt="" />
+        <img id="slideshow-image" class="slideshow-image" src="https://ritchennai.org/images/wstem/2.jpg" alt="Women Empowerment club members conducting a workshop, women leaders speaking to an attentive audience" />
         <div class="slideshow-controls">
             <button id="prev-btn" class="slideshow-button" aria-label="Previous image" type="button"><i class="fas fa-chevron-left"></i></button>
             <button id="next-btn" class="slideshow-button" aria-label="Next image" type="button"><i class="fas fa-chevron-right"></i></button>
