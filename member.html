@@ -7,203 +7,281 @@
   </title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  <style>
+    /* Custom scrollbar for modal */
+    #qr-reader::-webkit-scrollbar {
+      width: 8px;
+    }
+    #qr-reader::-webkit-scrollbar-thumb {
+      background-color: #3b82f6;
+      border-radius: 4px;
+    }
+  </style>
  </head>
- <body class="bg-gradient-to-br from-blue-100 to-blue-200 min-h-screen flex flex-col items-center font-['Roboto'] m-0">
-  <header class="w-full bg-blue-700 text-white py-5 text-center text-2xl font-bold drop-shadow-lg">
-   Club Member Portal
+ <body class="bg-gradient-to-br from-blue-100 to-blue-300 min-h-screen flex flex-col items-center font-['Roboto'] m-0">
+  <header class="w-full bg-blue-700 text-white py-5 px-6 flex justify-center items-center drop-shadow-lg sticky top-0 z-50">
+   <h1 class="text-2xl font-extrabold tracking-wide select-none">
+    Club Member Portal
+   </h1>
+   <button id="openScannerBtn" aria-label="Open QR Code Scanner" class="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white px-5 py-3 rounded-lg flex items-center gap-3 shadow-lg transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 select-none absolute right-6">
+    <i class="fas fa-qrcode text-xl"></i>
+    <span class="text-lg font-semibold">Scan QR</span>
+   </button>
   </header>
-  <nav class="w-full bg-white shadow-lg">
+  <nav class="w-full bg-white shadow-lg sticky top-[64px] z-40">
    <ul class="max-w-5xl mx-auto flex flex-wrap justify-center gap-6 py-5 font-semibold text-lg relative px-4 sm:px-0">
     <li>
-     <a class="relative group px-3 py-2 text-blue-700 hover:text-blue-900 transition-colors duration-300" href="hackathonproject.html">
+     <a class="relative group px-4 py-2 text-blue-700 hover:text-blue-900 transition-colors duration-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1" href="member.html">
       Home
-      <span class="absolute left-0 bottom-0 w-0 h-1 bg-blue-700 transition-all group-hover:w-full rounded">
-      </span>
+      <span class="absolute left-0 bottom-0 w-0 h-1 bg-blue-700 transition-all group-hover:w-full rounded"></span>
      </a>
     </li>
     <li>
-     <a class="relative group px-3 py-2 text-blue-700 hover:text-blue-900 transition-colors duration-300" href="upcomingEvents.html">
+     <a class="relative group px-4 py-2 text-blue-700 hover:text-blue-900 transition-colors duration-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1" href="upcomingEvents.html">
       Upcoming Events
-      <span class="absolute left-0 bottom-0 w-0 h-1 bg-blue-700 transition-all group-hover:w-full rounded">
-      </span>
+      <span class="absolute left-0 bottom-0 w-0 h-1 bg-blue-700 transition-all group-hover:w-full rounded"></span>
      </a>
     </li>
     <li>
-     <a class="relative group px-3 py-2 text-blue-700 hover:text-blue-900 transition-colors duration-300" href="leaderboard.html">
+     <a class="relative group px-4 py-2 text-blue-700 hover:text-blue-900 transition-colors duration-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1" href="leaderboard.html">
       Leaderboard
-      <span class="absolute left-0 bottom-0 w-0 h-1 bg-blue-700 transition-all group-hover:w-full rounded">
-      </span>
+      <span class="absolute left-0 bottom-0 w-0 h-1 bg-blue-700 transition-all group-hover:w-full rounded"></span>
      </a>
     </li>
-    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-400 rounded-t-lg shadow-md">
-    </div>
+    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-400 rounded-t-lg shadow-md"></div>
    </ul>
   </nav>
-  <main class="member-section w-11/12 max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-5">
-   <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+  <main class="member-section w-11/12 max-w-6xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 mb-12">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      Rotaract Club
     </p>
    </div>
-   <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of Jane Smith, a young woman with curly brown hair wearing glasses and a red blouse, smiling warmly" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/bb1e4d25-2248-41ff-b8f1-38a895555bbc.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of Jane Smith, a young woman with curly brown hair wearing glasses and a red blouse, smiling warmly" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/bb1e4d25-2248-41ff-b8f1-38a895555bbc.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club President Name 
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      WEC
     </p>
    </div>
-   <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of Jane Smith, a young woman with curly brown hair wearing glasses and a red blouse, smiling warmly" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/bb1e4d25-2248-41ff-b8f1-38a895555bbc.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of Jane Smith, a young woman with curly brown hair wearing glasses and a red blouse, smiling warmly" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/bb1e4d25-2248-41ff-b8f1-38a895555bbc.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club President name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      Women Empowerment 
     </p>
    </div>
-   <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club President name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      Podcast Club
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      Nippon Club
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      Vaarithi Muthamizh Club
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      Telugu Club
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      Fusion Club
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      Mediastic  Hub
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      STEM
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      Techsparks Club
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      STEAM Club
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      UBA Club
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      YUVA Club
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      YRC Club
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      NSS Club
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      Infinitus Club
     </p>
    </div>
-      <div class="member-card bg-white rounded-xl p-5 shadow-md hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
-    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-4 w-24 h-24 object-cover" height="100" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="100"/>
-    <h3 class="text-blue-700 text-xl mb-2 text-center">
+   <div class="member-card bg-white rounded-2xl p-6 shadow-lg hover:scale-105 transition-transform cursor-pointer flex flex-col items-center text-center select-none">
+    <img alt="Portrait of John Doe, a young man with short black hair wearing a blue shirt, smiling confidently" class="rounded-full mb-5 w-28 h-28 object-cover shadow-md" height="112" src="https://storage.googleapis.com/a1aa/image/b149e7c0-f86a-47fb-750a-6c6d2e8fa220.jpg" width="112"/>
+    <h3 class="text-blue-800 text-2xl font-semibold mb-2 leading-tight">
      Club president name
     </h3>
-    <p class="text-gray-800 m-0 text-center">
+    <p class="text-gray-900 text-lg font-medium m-0">
      Photography Club
     </p>
    </div>
   </main>
+
+  <!-- Modal for QR Scanner -->
+  <div id="qrScannerModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+   <div class="bg-white rounded-3xl shadow-2xl w-11/12 max-w-md p-6 relative flex flex-col">
+    <button id="closeScannerBtn" aria-label="Close QR Code Scanner" class="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-3xl font-extrabold focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-full select-none">&times;</button>
+    <h2 class="text-2xl font-bold mb-4 text-center text-blue-700 select-none">Scan QR Code (Google Forms only)</h2>
+    <div id="qr-reader" class="w-full aspect-square rounded-xl overflow-hidden shadow-inner"></div>
+    <p id="qr-result" class="mt-4 text-center text-gray-800 break-words select-text min-h-[1.5rem]"></p>
+   </div>
+  </div>
+
+  <script>
+   const openScannerBtn = document.getElementById('openScannerBtn');
+   const closeScannerBtn = document.getElementById('closeScannerBtn');
+   const qrScannerModal = document.getElementById('qrScannerModal');
+   const qrResult = document.getElementById('qr-result');
+   let html5QrcodeScanner;
+
+   openScannerBtn.addEventListener('click', () => {
+    qrResult.textContent = '';
+    qrScannerModal.classList.remove('hidden');
+
+    if (!html5QrcodeScanner) {
+     html5QrcodeScanner = new Html5Qrcode("qr-reader");
+    }
+
+    html5QrcodeScanner.start(
+     { facingMode: "environment" },
+     {
+      fps: 10,
+      qrbox: 280
+     },
+     qrCodeMessage => {
+      if (typeof qrCodeMessage === 'string' && qrCodeMessage.startsWith('https://docs.google.com/forms/')) {
+       qrResult.innerHTML = `<span class="text-green-600 font-semibold">Valid Google Form QR code detected. Redirecting...</span>`;
+       html5QrcodeScanner.stop().then(() => {
+        window.location.href = qrCodeMessage;
+       }).catch(err => {
+        console.error('Failed to stop scanner:', err);
+       });
+      } else {
+       qrResult.innerHTML = `<span class="text-red-600 font-semibold">Invalid QR code. Please scan a Google Forms QR code.</span>`;
+      }
+     },
+     errorMessage => {
+      // ignore scan errors for now
+     }
+    ).catch(err => {
+     qrResult.textContent = `Unable to start scanning: ${err}`;
+    });
+   });
+
+   closeScannerBtn.addEventListener('click', () => {
+    qrScannerModal.classList.add('hidden');
+    qrResult.textContent = '';
+    if (html5QrcodeScanner) {
+     html5QrcodeScanner.stop().catch(() => {});
+    }
+   });
+
+   qrScannerModal.addEventListener('click', (e) => {
+    if (e.target === qrScannerModal) {
+     closeScannerBtn.click();
+    }
+   });
+  </script>
  </body>
 </html>
