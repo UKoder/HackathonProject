@@ -1,0 +1,1036 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Admin Portal - Club Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+    /* Scrollbar for members list */
+    #members-list::-webkit-scrollbar {
+      width: 8px;
+    }
+    #members-list::-webkit-scrollbar-thumb {
+      background-color: #6366f1;
+      border-radius: 4px;
+    }
+  </style>
+ </head>
+ <body class="bg-gradient-to-b from-indigo-50 to-white min-h-screen flex flex-col">
+  <header class="bg-white shadow-md sticky top-0 z-30">
+   <div
+     class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16"
+   >
+    <div class="flex items-center space-x-3">
+     <img
+       alt="Admin Portal Logo, a stylized shield with a checkmark"
+       class="h-10 w-10 rounded-lg shadow-md"
+       height="40"
+       src="https://storage.googleapis.com/a1aa/image/dddcec3b-0416-4b64-0890-a3a12c43a4d1.jpg"
+       width="40"
+     />
+     <h1 class="text-2xl font-extrabold text-indigo-700 tracking-wide select-none">
+      Admin Portal
+     </h1>
+    </div>
+    <nav
+      class="hidden md:flex space-x-8 text-gray-700 font-semibold tracking-wide"
+      role="tablist"
+      aria-label="Main navigation tabs"
+    >
+     <button
+       aria-current="page"
+       aria-selected="true"
+       aria-controls="section-events"
+       class="py-3 border-b-4 border-indigo-600 text-indigo-600 focus:outline-none transition-colors duration-300"
+       id="tab-events"
+       role="tab"
+       tabindex="0"
+     >
+      Add Events
+     </button>
+     <button
+       aria-selected="false"
+       aria-controls="section-clubs"
+       class="py-3 border-b-4 border-transparent hover:border-indigo-600 hover:text-indigo-600 focus:outline-none transition-colors duration-300"
+       id="tab-clubs"
+       role="tab"
+       tabindex="-1"
+     >
+      Add Clubs
+     </button>
+     <button
+       aria-selected="false"
+       aria-controls="section-attendance"
+       class="py-3 border-b-4 border-transparent hover:border-indigo-600 hover:text-indigo-600 focus:outline-none transition-colors duration-300"
+       id="tab-attendance"
+       role="tab"
+       tabindex="-1"
+     >
+      Attendance Check-ins
+     </button>
+    </nav>
+    <button
+      aria-label="Open menu"
+      class="md:hidden text-indigo-700 hover:text-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded"
+      id="mobile-menu-button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+     <i class="fas fa-bars fa-lg"></i>
+    </button>
+   </div>
+   <nav
+     aria-label="Mobile menu"
+     class="md:hidden hidden bg-white border-t border-gray-200 shadow-lg"
+     id="mobile-menu"
+     role="tablist"
+   >
+    <button
+      class="block w-full text-left px-5 py-4 border-l-4 border-indigo-600 bg-indigo-50 text-indigo-700 font-semibold tracking-wide focus:outline-none focus:bg-indigo-100 transition"
+      id="mobile-tab-events"
+      role="tab"
+      aria-selected="true"
+      aria-controls="section-events"
+      tabindex="0"
+    >
+     Add Events
+    </button>
+    <button
+      class="block w-full text-left px-5 py-4 border-l-4 border-transparent hover:border-indigo-600 hover:bg-indigo-50 hover:text-indigo-700 focus:outline-none focus:bg-indigo-100 transition"
+      id="mobile-tab-clubs"
+      role="tab"
+      aria-selected="false"
+      aria-controls="section-clubs"
+      tabindex="-1"
+    >
+     Add Clubs
+    </button>
+    <button
+      class="block w-full text-left px-5 py-4 border-l-4 border-transparent hover:border-indigo-600 hover:bg-indigo-50 hover:text-indigo-700 focus:outline-none focus:bg-indigo-100 transition"
+      id="mobile-tab-attendance"
+      role="tab"
+      aria-selected="false"
+      aria-controls="section-attendance"
+      tabindex="-1"
+    >
+     Attendance Check-ins
+    </button>
+   </nav>
+  </header>
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+   <!-- Add Events Section -->
+   <section
+     class="space-y-8"
+     id="section-events"
+     role="tabpanel"
+     tabindex="0"
+     aria-labelledby="tab-events"
+   >
+    <h2 class="text-3xl font-extrabold text-indigo-700 tracking-tight mb-4">
+     Add New Event
+    </h2>
+    <form
+      autocomplete="off"
+      class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto border border-indigo-200"
+      id="form-event"
+    >
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+       <label
+         class="block text-gray-800 font-semibold mb-2 tracking-wide"
+         for="event-name"
+         >Event Name</label
+       >
+       <input
+         class="w-full border border-indigo-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition"
+         id="event-name"
+         name="eventName"
+         placeholder="Enter event name"
+         required=""
+         type="text"
+       />
+      </div>
+      <div>
+       <label
+         class="block text-gray-800 font-semibold mb-2 tracking-wide"
+         for="event-date"
+         >Event Date</label
+       >
+       <input
+         class="w-full border border-indigo-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition"
+         id="event-date"
+         name="eventDate"
+         required=""
+         type="date"
+       />
+      </div>
+      <div>
+       <label
+         class="block text-gray-800 font-semibold mb-2 tracking-wide"
+         for="event-time"
+         >Event Time</label
+       >
+       <input
+         class="w-full border border-indigo-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition"
+         id="event-time"
+         name="eventTime"
+         required=""
+         type="time"
+       />
+      </div>
+      <div>
+       <label
+         class="block text-gray-800 font-semibold mb-2 tracking-wide"
+         for="event-club"
+         >Associated Club</label
+       >
+       <select
+         class="w-full border border-indigo-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition"
+         id="event-club"
+         name="eventClub"
+         required=""
+       >
+        <option disabled="" selected="" value="">Select a club</option>
+       </select>
+      </div>
+      <div class="md:col-span-2">
+       <label
+         class="block text-gray-800 font-semibold mb-2 tracking-wide"
+         for="event-description"
+         >Event Description</label
+       >
+       <textarea
+         class="w-full border border-indigo-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-300 resize-none transition"
+         id="event-description"
+         name="eventDescription"
+         placeholder="Enter event details"
+         rows="5"
+       ></textarea>
+      </div>
+     </div>
+     <div class="mt-8 flex justify-end">
+      <button
+        class="inline-flex items-center px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-400 transition"
+        type="submit"
+      >
+       <i class="fas fa-plus mr-3"></i> Add Event
+      </button>
+     </div>
+    </form>
+    <div class="mt-12 max-w-4xl mx-auto">
+     <h3 class="text-2xl font-extrabold text-indigo-700 mb-6 tracking-wide">
+      Existing Events
+     </h3>
+     <ul class="space-y-5" id="events-list">
+      <li
+        class="bg-white p-6 rounded-2xl shadow-md flex flex-col md:flex-row md:justify-between md:items-center border border-indigo-200 hover:shadow-lg transition"
+      >
+       <div>
+        <h4 class="text-xl font-bold text-indigo-600 mb-1">Sample Event 1</h4>
+        <p class="text-gray-700 text-sm font-medium">Club: Sample Club A</p>
+        <p class="text-gray-700 text-sm font-medium">Date: 2024-07-01</p>
+        <p class="text-gray-700 text-sm font-medium">Time: 18:00</p>
+        <p class="text-gray-800 mt-2 leading-relaxed">
+         This is a sample event description.
+        </p>
+       </div>
+       <button
+         aria-label="Delete Sample Event 1"
+         class="mt-5 md:mt-0 text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-400 rounded"
+       >
+        <i class="fas fa-trash-alt fa-lg"></i>
+       </button>
+      </li>
+     </ul>
+    </div>
+   </section>
+   <!-- Add Clubs Section -->
+   <section
+     class="hidden space-y-8"
+     id="section-clubs"
+     role="tabpanel"
+     tabindex="0"
+     aria-labelledby="tab-clubs"
+   >
+    <h2 class="text-3xl font-extrabold text-indigo-700 tracking-tight mb-4">
+     Add New Club
+    </h2>
+    <form
+      autocomplete="off"
+      class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto border border-indigo-200"
+      id="form-club"
+    >
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+       <label
+         class="block text-gray-800 font-semibold mb-2 tracking-wide"
+         for="club-name"
+         >Club Name</label
+       >
+       <input
+         class="w-full border border-indigo-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition"
+         id="club-name"
+         name="clubName"
+         placeholder="Enter club name"
+         required=""
+         type="text"
+       />
+      </div>
+      <div>
+       <label
+         class="block text-gray-800 font-semibold mb-2 tracking-wide"
+         for="club-email"
+         >Contact Email</label
+       >
+       <input
+         class="w-full border border-indigo-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition"
+         id="club-email"
+         name="clubEmail"
+         placeholder="contact@club.com"
+         required=""
+         type="email"
+       />
+      </div>
+      <div class="md:col-span-2">
+       <label
+         class="block text-gray-800 font-semibold mb-2 tracking-wide"
+         for="club-description"
+         >Club Description</label
+       >
+       <textarea
+         class="w-full border border-indigo-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-300 resize-none transition"
+         id="club-description"
+         name="clubDescription"
+         placeholder="Enter club details"
+         rows="5"
+       ></textarea>
+      </div>
+     </div>
+     <div class="mt-8 flex justify-end">
+      <button
+        class="inline-flex items-center px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-400 transition"
+        type="submit"
+      >
+       <i class="fas fa-plus mr-3"></i> Add Club
+      </button>
+     </div>
+    </form>
+    <div class="mt-12 max-w-4xl mx-auto">
+     <h3 class="text-2xl font-extrabold text-indigo-700 mb-6 tracking-wide">
+      Existing Clubs
+     </h3>
+     <ul class="space-y-5" id="clubs-list">
+      <li
+        class="bg-white p-6 rounded-2xl shadow-md flex flex-col md:flex-row md:justify-between md:items-center border border-indigo-200 hover:shadow-lg transition"
+      >
+       <div>
+        <h4 class="text-xl font-bold text-indigo-600 mb-1">Sample Club A</h4>
+        <p class="text-gray-700 text-sm font-medium">Email: sample@cluba.com</p>
+        <p class="text-gray-800 mt-2 leading-relaxed">
+         This is a sample club description.
+        </p>
+       </div>
+       <button
+         aria-label="Delete Sample Club A"
+         class="mt-5 md:mt-0 text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-400 rounded"
+       >
+        <i class="fas fa-trash-alt fa-lg"></i>
+       </button>
+      </li>
+     </ul>
+    </div>
+   </section>
+   <!-- Attendance Check-ins Section -->
+   <section
+     class="hidden space-y-8"
+     id="section-attendance"
+     role="tabpanel"
+     tabindex="0"
+     aria-labelledby="tab-attendance"
+   >
+    <h2 class="text-3xl font-extrabold text-indigo-700 tracking-tight mb-6">
+     Attendance Check-ins
+    </h2>
+    <div
+      class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto border border-indigo-200"
+    >
+     <div class="mb-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+       <label
+         class="block text-gray-800 font-semibold mb-2 tracking-wide"
+         for="attendance-club"
+         >Select Club</label
+       >
+       <select
+         class="w-full border border-indigo-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition"
+         id="attendance-club"
+       >
+        <option disabled="" selected="" value="">Select a club</option>
+       </select>
+      </div>
+      <div>
+       <label
+         class="block text-gray-800 font-semibold mb-2 tracking-wide"
+         for="attendance-event"
+         >Select Event</label
+       >
+       <select
+         class="w-full border border-indigo-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition disabled:opacity-50"
+         disabled=""
+         id="attendance-event"
+       >
+        <option disabled="" selected="" value="">Select an event</option>
+       </select>
+      </div>
+      <div>
+       <label
+         class="block text-gray-800 font-semibold mb-2 tracking-wide"
+         for="member-search"
+         >Search Member</label
+       >
+       <input
+         class="w-full border border-indigo-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition disabled:opacity-50"
+         disabled=""
+         id="member-search"
+         placeholder="Enter member name or ID"
+         type="text"
+       />
+      </div>
+     </div>
+     <div class="hidden max-w-4xl mx-auto" id="attendance-members-section">
+      <h3 class="text-xl font-extrabold text-indigo-700 mb-4 tracking-wide">
+       Club Members
+      </h3>
+      <ul
+        class="max-h-72 overflow-y-auto border border-indigo-300 rounded-lg divide-y divide-indigo-200"
+        id="members-list"
+      ></ul>
+      <div class="mt-6 flex justify-end">
+       <button
+         class="inline-flex items-center px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-400 transition"
+         id="save-attendance"
+       >
+        <i class="fas fa-save mr-3"></i> Save Attendance
+       </button>
+      </div>
+     </div>
+    </div>
+    <div class="mt-12 max-w-5xl overflow-x-auto mx-auto">
+     <h3
+       class="text-2xl font-extrabold text-indigo-700 mb-6 max-w-4xl mx-auto tracking-wide"
+     >
+      Attendance Summary
+     </h3>
+     <table
+       class="min-w-full bg-white rounded-2xl shadow border border-indigo-200 overflow-hidden"
+     >
+      <thead>
+       <tr class="bg-indigo-600 text-white text-left select-none">
+        <th class="py-4 px-6 font-semibold text-sm uppercase tracking-wider">
+         Name
+        </th>
+        <th class="py-4 px-6 font-semibold text-sm uppercase tracking-wider">
+         Club Name
+        </th>
+        <th
+          class="py-4 px-6 font-semibold text-sm uppercase tracking-wider text-center"
+        >
+         No. of Events Attended
+        </th>
+        <th
+          class="py-4 px-6 font-semibold text-sm uppercase tracking-wider text-center"
+        >
+         No. of Days Present
+        </th>
+       </tr>
+      </thead>
+      <tbody class="divide-y divide-indigo-200" id="attendance-summary-body">
+       <!-- Rows inserted here -->
+      </tbody>
+     </table>
+    </div>
+   </section>
+  </main>
+  <footer
+    class="bg-white border-t border-indigo-200 py-6 text-center text-indigo-600 text-sm font-semibold select-none"
+  >
+   © Rajalakshmi Institute Of Technology
+  </footer>
+  <script>
+   // Elements
+    const tabs = {
+      events: document.getElementById('tab-events'),
+      clubs: document.getElementById('tab-clubs'),
+      attendance: document.getElementById('tab-attendance'),
+    };
+    const mobileTabs = {
+      events: document.getElementById('mobile-tab-events'),
+      clubs: document.getElementById('mobile-tab-clubs'),
+      attendance: document.getElementById('mobile-tab-attendance'),
+    };
+    const sections = {
+      events: document.getElementById('section-events'),
+      clubs: document.getElementById('section-clubs'),
+      attendance: document.getElementById('section-attendance'),
+    };
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    // Data storage (simulate backend)
+    let clubs = [
+      {
+        id: 1,
+        name: 'Sample Club A',
+        email: 'sample@cluba.com',
+        description: 'This is a sample club description.',
+        members: [
+          { id: 1, name: 'John Doe' },
+          { id: 2, name: 'Jane Smith' },
+          { id: 3, name: 'Alice Johnson' },
+          { id: 4, name: 'Bob Brown' },
+          { id: 5, name: 'Charlie Davis' },
+        ],
+      },
+      {
+        id: 2,
+        name: 'Sample Club B',
+        email: 'contact@clubb.com',
+        description: 'Another sample club for demonstration.',
+        members: [
+          { id: 6, name: 'David Wilson' },
+          { id: 7, name: 'Eva Green' },
+          { id: 8, name: 'Frank Moore' },
+        ],
+      },
+    ];
+
+    let events = [
+      {
+        id: 1,
+        name: 'Sample Event 1',
+        date: '2024-07-01',
+        time: '18:00',
+        clubId: 1,
+        description: 'This is a sample event description.',
+      },
+      {
+        id: 2,
+        name: 'Sample Event 2',
+        date: '2024-08-15',
+        time: '14:00',
+        clubId: 2,
+        description: 'Second sample event for Sample Club B.',
+      },
+    ];
+
+    let attendanceRecords = [
+      {
+        id: 1,
+        clubId: 1,
+        eventId: 1,
+        date: '2024-07-01',
+        attendedMembers: [1, 2], // member ids
+      },
+    ];
+
+    // Utility functions
+    function clearActiveTabs() {
+      Object.values(tabs).forEach((btn) => {
+        btn.classList.remove('border-indigo-600', 'text-indigo-600');
+        btn.classList.add('border-transparent');
+        btn.setAttribute('aria-selected', 'false');
+        btn.setAttribute('tabindex', '-1');
+      });
+      Object.values(mobileTabs).forEach((btn) => {
+        btn.classList.remove(
+          'border-indigo-600',
+          'bg-indigo-50',
+          'text-indigo-600',
+          'font-semibold'
+        );
+        btn.classList.add('border-transparent');
+        btn.setAttribute('aria-selected', 'false');
+        btn.setAttribute('tabindex', '-1');
+      });
+    }
+
+    function hideAllSections() {
+      Object.values(sections).forEach((section) => {
+        section.classList.add('hidden');
+        section.setAttribute('aria-hidden', 'true');
+        section.setAttribute('tabindex', '-1');
+      });
+    }
+
+    function setActiveTab(tabName) {
+      clearActiveTabs();
+      hideAllSections();
+      const tabBtn = tabs[tabName];
+      const mobileTabBtn = mobileTabs[tabName];
+      const section = sections[tabName];
+
+      tabBtn.classList.add('border-indigo-600', 'text-indigo-600');
+      tabBtn.classList.remove('border-transparent');
+      tabBtn.setAttribute('aria-selected', 'true');
+      tabBtn.setAttribute('tabindex', '0');
+
+      mobileTabBtn.classList.add(
+        'border-indigo-600',
+        'bg-indigo-50',
+        'text-indigo-600',
+        'font-semibold'
+      );
+      mobileTabBtn.classList.remove('border-transparent');
+      mobileTabBtn.setAttribute('aria-selected', 'true');
+      mobileTabBtn.setAttribute('tabindex', '0');
+
+      section.classList.remove('hidden');
+      section.setAttribute('aria-hidden', 'false');
+      section.setAttribute('tabindex', '0');
+
+      if (mobileMenu.classList.contains('block')) {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('block');
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    // Initialize default tab
+    setActiveTab('events');
+
+    // Tab click handlers
+    tabs.events.addEventListener('click', () => setActiveTab('events'));
+    tabs.clubs.addEventListener('click', () => setActiveTab('clubs'));
+    tabs.attendance.addEventListener('click', () => setActiveTab('attendance'));
+
+    mobileTabs.events.addEventListener('click', () => setActiveTab('events'));
+    mobileTabs.clubs.addEventListener('click', () => setActiveTab('clubs'));
+    mobileTabs.attendance.addEventListener('click', () => setActiveTab('attendance'));
+
+    // Keyboard navigation for tabs (optional)
+    Object.values(tabs).forEach((tabBtn, idx, arr) => {
+      tabBtn.addEventListener('keydown', (e) => {
+        let newIndex = null;
+        if (e.key === 'ArrowRight') {
+          newIndex = (idx + 1) % arr.length;
+        } else if (e.key === 'ArrowLeft') {
+          newIndex = (idx - 1 + arr.length) % arr.length;
+        }
+        if (newIndex !== null) {
+          e.preventDefault();
+          arr[newIndex].focus();
+          setActiveTab(arr[newIndex].id.replace('tab-', ''));
+        }
+      });
+    });
+    Object.values(mobileTabs).forEach((tabBtn, idx, arr) => {
+      tabBtn.addEventListener('keydown', (e) => {
+        let newIndex = null;
+        if (e.key === 'ArrowDown') {
+          newIndex = (idx + 1) % arr.length;
+        } else if (e.key === 'ArrowUp') {
+          newIndex = (idx - 1 + arr.length) % arr.length;
+        }
+        if (newIndex !== null) {
+          e.preventDefault();
+          arr[newIndex].focus();
+          setActiveTab(arr[newIndex].id.replace('mobile-tab-', ''));
+        }
+      });
+    });
+
+    // Mobile menu toggle
+    mobileMenuButton.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('block');
+        mobileMenuButton.setAttribute('aria-expanded', 'true');
+      } else {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('block');
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // DOM elements for dynamic content
+    const eventClubSelect = document.getElementById('event-club');
+    const eventsList = document.getElementById('events-list');
+    const clubsList = document.getElementById('clubs-list');
+    const attendanceClubSelect = document.getElementById('attendance-club');
+    const attendanceEventSelect = document.getElementById('attendance-event');
+    const memberSearchInput = document.getElementById('member-search');
+    const membersList = document.getElementById('members-list');
+    const attendanceMembersSection = document.getElementById('attendance-members-section');
+    const attendanceSummaryBody = document.getElementById('attendance-summary-body');
+
+    // Populate club selects
+    function populateClubSelects() {
+      [eventClubSelect, attendanceClubSelect].forEach((select) => {
+        select.innerHTML = '<option value="" disabled selected>Select a club</option>';
+        clubs.forEach((club) => {
+          const option = document.createElement('option');
+          option.value = club.id;
+          option.textContent = club.name;
+          select.appendChild(option);
+        });
+      });
+    }
+
+    // Populate events select for attendance based on selected club
+    function populateAttendanceEvents(clubId) {
+      attendanceEventSelect.innerHTML = '<option value="" disabled selected>Select an event</option>';
+      if (!clubId) {
+        attendanceEventSelect.disabled = true;
+        memberSearchInput.disabled = true;
+        attendanceMembersSection.classList.add('hidden');
+        membersList.innerHTML = '';
+        return;
+      }
+      const filteredEvents = events.filter((e) => e.clubId === parseInt(clubId));
+      filteredEvents.forEach((event) => {
+        const option = document.createElement('option');
+        option.value = event.id;
+        option.textContent = `${event.name} (${event.date})`;
+        attendanceEventSelect.appendChild(option);
+      });
+      attendanceEventSelect.disabled = false;
+      memberSearchInput.disabled = true;
+      attendanceMembersSection.classList.add('hidden');
+      membersList.innerHTML = '';
+    }
+
+    // Render events list
+    function renderEvents() {
+      eventsList.innerHTML = '';
+      if (events.length === 0) {
+        eventsList.innerHTML =
+          '<p class="text-gray-600 text-center py-6">No events added yet.</p>';
+        return;
+      }
+      events.forEach((event) => {
+        const club = clubs.find((c) => c.id === event.clubId);
+        const li = document.createElement('li');
+        li.className =
+          'bg-white p-6 rounded-2xl shadow-md flex flex-col md:flex-row md:justify-between md:items-center border border-indigo-200 hover:shadow-lg transition';
+        li.innerHTML = `
+          <div>
+            <h4 class="text-xl font-bold text-indigo-600">${event.name}</h4>
+            <p class="text-gray-700 text-sm font-medium">Club: ${club ? club.name : 'Unknown'}</p>
+            <p class="text-gray-700 text-sm font-medium">Date: ${event.date}</p>
+            <p class="text-gray-700 text-sm font-medium">Time: ${event.time}</p>
+            <p class="text-gray-800 mt-2 leading-relaxed">${event.description || ''}</p>
+          </div>
+          <button aria-label="Delete event ${event.name}" class="mt-5 md:mt-0 text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-400 rounded delete-event" data-id="${event.id}">
+            <i class="fas fa-trash-alt fa-lg"></i>
+          </button>
+        `;
+        eventsList.appendChild(li);
+      });
+    }
+
+    // Render clubs list
+    function renderClubs() {
+      clubsList.innerHTML = '';
+      if (clubs.length === 0) {
+        clubsList.innerHTML =
+          '<p class="text-gray-600 text-center py-6">No clubs added yet.</p>';
+        return;
+      }
+      clubs.forEach((club) => {
+        const li = document.createElement('li');
+        li.className =
+          'bg-white p-6 rounded-2xl shadow-md flex flex-col md:flex-row md:justify-between md:items-center border border-indigo-200 hover:shadow-lg transition';
+        li.innerHTML = `
+          <div>
+            <h4 class="text-xl font-bold text-indigo-600">${club.name}</h4>
+            <p class="text-gray-700 text-sm font-medium">Email: ${club.email}</p>
+            <p class="text-gray-800 mt-2 leading-relaxed">${club.description || ''}</p>
+          </div>
+          <button aria-label="Delete club ${club.name}" class="mt-5 md:mt-0 text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-400 rounded delete-club" data-id="${club.id}">
+            <i class="fas fa-trash-alt fa-lg"></i>
+          </button>
+        `;
+        clubsList.appendChild(li);
+      });
+    }
+
+    // Render members list for attendance check-in
+    function renderMembersList(clubId, searchTerm = '') {
+      membersList.innerHTML = '';
+      if (!clubId) return;
+      const club = clubs.find((c) => c.id === parseInt(clubId));
+      if (!club) return;
+      let filteredMembers = club.members;
+      if (searchTerm.trim() !== '') {
+        const term = searchTerm.toLowerCase();
+        filteredMembers = filteredMembers.filter(
+          (m) => m.name.toLowerCase().includes(term) || m.id.toString() === term
+        );
+      }
+      if (filteredMembers.length === 0) {
+        membersList.innerHTML =
+          '<li class="p-4 text-gray-600 text-center select-none">No members found.</li>';
+        return;
+      }
+      filteredMembers.forEach((member) => {
+        const li = document.createElement('li');
+        li.className =
+          'flex items-center justify-between px-5 py-3 hover:bg-indigo-50 cursor-pointer transition rounded';
+        li.innerHTML = `
+          <span class="select-none">${member.name} (ID: ${member.id})</span>
+          <input type="checkbox" class="member-checkbox" data-id="${member.id}" />
+        `;
+        membersList.appendChild(li);
+      });
+    }
+
+    // Add event form submit
+    document.getElementById('form-event').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = e.target.eventName.value.trim();
+      const date = e.target.eventDate.value;
+      const time = e.target.eventTime.value;
+      const clubId = parseInt(e.target.eventClub.value);
+      const description = e.target.eventDescription.value.trim();
+
+      if (!name || !date || !time || !clubId) return;
+
+      const newEvent = {
+        id: events.length > 0 ? events[events.length - 1].id + 1 : 1,
+        name,
+        date,
+        time,
+        clubId,
+        description,
+      };
+      events.push(newEvent);
+      renderEvents();
+      e.target.reset();
+      e.target.eventClub.value = '';
+      alert('Event added successfully!');
+      populateAttendanceEvents(attendanceClubSelect.value);
+      renderAttendanceSummary();
+    });
+
+    // Add club form submit
+    document.getElementById('form-club').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = e.target.clubName.value.trim();
+      const email = e.target.clubEmail.value.trim();
+      const description = e.target.clubDescription.value.trim();
+
+      if (!name || !email) return;
+
+      const newClub = {
+        id: clubs.length > 0 ? clubs[clubs.length - 1].id + 1 : 1,
+        name,
+        email,
+        description,
+        members: [],
+      };
+      clubs.push(newClub);
+      renderClubs();
+      populateClubSelects();
+      e.target.reset();
+      alert('Club added successfully!');
+      renderAttendanceSummary();
+    });
+
+    // Delete event handler (event delegation)
+    eventsList.addEventListener('click', (e) => {
+      if (e.target.closest('.delete-event')) {
+        const btn = e.target.closest('.delete-event');
+        const id = parseInt(btn.dataset.id);
+        if (confirm('Are you sure you want to delete this event?')) {
+          events = events.filter((event) => event.id !== id);
+          // Also remove attendance records for this event
+          attendanceRecords = attendanceRecords.filter((record) => record.eventId !== id);
+          renderEvents();
+          renderAttendanceSummary();
+          populateAttendanceEvents(attendanceClubSelect.value);
+        }
+      }
+    });
+
+    // Delete club handler (event delegation)
+    clubsList.addEventListener('click', (e) => {
+      if (e.target.closest('.delete-club')) {
+        const btn = e.target.closest('.delete-club');
+        const id = parseInt(btn.dataset.id);
+        if (
+          confirm(
+            'Are you sure you want to delete this club? This will also delete related events and attendance records.'
+          )
+        ) {
+          clubs = clubs.filter((club) => club.id !== id);
+          events = events.filter((event) => event.clubId !== id);
+          attendanceRecords = attendanceRecords.filter((record) => record.clubId !== id);
+          renderClubs();
+          renderEvents();
+          renderAttendanceSummary();
+          populateClubSelects();
+          populateAttendanceEvents(attendanceClubSelect.value);
+        }
+      }
+    });
+
+    // Attendance club select change
+    attendanceClubSelect.addEventListener('change', (e) => {
+      const clubId = e.target.value;
+      populateAttendanceEvents(clubId);
+      memberSearchInput.value = '';
+      memberSearchInput.disabled = true;
+      attendanceMembersSection.classList.add('hidden');
+      membersList.innerHTML = '';
+    });
+
+    // Attendance event select change
+    attendanceEventSelect.addEventListener('change', (e) => {
+      const clubId = attendanceClubSelect.value;
+      const eventId = e.target.value;
+      if (!clubId || !eventId) {
+        attendanceMembersSection.classList.add('hidden');
+        membersList.innerHTML = '';
+        memberSearchInput.disabled = true;
+        return;
+      }
+      memberSearchInput.disabled = false;
+      attendanceMembersSection.classList.remove('hidden');
+      memberSearchInput.value = '';
+      renderMembersList(clubId);
+      // Pre-check members who already attended this event
+      const record = attendanceRecords.find(
+        (r) => r.clubId === parseInt(clubId) && r.eventId === parseInt(eventId)
+      );
+      if (record) {
+        const checkboxes = membersList.querySelectorAll('.member-checkbox');
+        checkboxes.forEach((checkbox) => {
+          const memberId = parseInt(checkbox.dataset.id);
+          checkbox.checked = record.attendedMembers.includes(memberId);
+        });
+      }
+    });
+
+    // Member search input
+    memberSearchInput.addEventListener('input', (e) => {
+      const clubId = attendanceClubSelect.value;
+      const searchTerm = e.target.value;
+      renderMembersList(clubId, searchTerm);
+      // Re-check checkboxes for already attended members after filtering
+      const eventId = attendanceEventSelect.value;
+      if (!clubId || !eventId) return;
+      const record = attendanceRecords.find(
+        (r) => r.clubId === parseInt(clubId) && r.eventId === parseInt(eventId)
+      );
+      if (record) {
+        const checkboxes = membersList.querySelectorAll('.member-checkbox');
+        checkboxes.forEach((checkbox) => {
+          const memberId = parseInt(checkbox.dataset.id);
+          checkbox.checked = record.attendedMembers.includes(memberId);
+        });
+      }
+    });
+
+    // Save attendance button
+    document.getElementById('save-attendance').addEventListener('click', () => {
+      const clubId = parseInt(attendanceClubSelect.value);
+      const eventId = parseInt(attendanceEventSelect.value);
+      if (!clubId || !eventId) {
+        alert('Please select both club and event.');
+        return;
+      }
+      const checkedBoxes = membersList.querySelectorAll('.member-checkbox:checked');
+      const attendedMembers = Array.from(checkedBoxes).map((cb) => parseInt(cb.dataset.id));
+      const today = new Date().toISOString().split('T')[0];
+
+      // Check if record exists
+      let record = attendanceRecords.find(
+        (r) => r.clubId === clubId && r.eventId === eventId
+      );
+      if (record) {
+        record.attendedMembers = attendedMembers;
+        record.date = today;
+      } else {
+        record = {
+          id: attendanceRecords.length > 0 ? attendanceRecords[attendanceRecords.length - 1].id + 1 : 1,
+          clubId,
+          eventId,
+          date: today,
+          attendedMembers,
+        };
+        attendanceRecords.push(record);
+      }
+      alert('Attendance saved successfully!');
+      renderAttendanceSummary();
+    });
+
+    // Render attendance summary table
+    function renderAttendanceSummary() {
+      attendanceSummaryBody.innerHTML = '';
+      // Build a map: memberId -> { name, clubName, eventsAttendedSet, daysPresentSet }
+      const memberMap = new Map();
+
+      clubs.forEach((club) => {
+        club.members.forEach((member) => {
+          memberMap.set(member.id, {
+            name: member.name,
+            clubName: club.name,
+            eventsAttendedSet: new Set(),
+            daysPresentSet: new Set(),
+          });
+        });
+      });
+
+      attendanceRecords.forEach((record) => {
+        record.attendedMembers.forEach((memberId) => {
+          const memberData = memberMap.get(memberId);
+          if (memberData) {
+            memberData.eventsAttendedSet.add(record.eventId);
+            memberData.daysPresentSet.add(record.date);
+          }
+        });
+      });
+
+      if (memberMap.size === 0) {
+        attendanceSummaryBody.innerHTML =
+          '<tr><td colspan="4" class="p-6 text-center text-gray-600 select-none">No attendance data available.</td></tr>';
+        return;
+      }
+
+      // Sort members alphabetically by name
+      const sortedMembers = Array.from(memberMap.values()).sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+
+      sortedMembers.forEach((member) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-indigo-50 cursor-default select-none';
+        tr.innerHTML = `
+          <td class="py-4 px-6 border-b border-indigo-200">${member.name}</td>
+          <td class="py-4 px-6 border-b border-indigo-200">${member.clubName}</td>
+          <td class="py-4 px-6 border-b border-indigo-200 text-center">${member.eventsAttendedSet.size}</td>
+          <td class="py-4 px-6 border-b border-indigo-200 text-center">${member.daysPresentSet.size}</td>
+        `;
+        attendanceSummaryBody.appendChild(tr);
+      });
+    }
+
+    // Initial population
+    populateClubSelects();
+    renderEvents();
+    renderClubs();
+    renderAttendanceSummary();
+  </script>
+ </body>
+</html>

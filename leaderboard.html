@@ -1,0 +1,379 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Club Member Portal - Leaderboard
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media (max-width: 640px) {
+      /* On mobile, force top 3 to be in one row with horizontal scroll if needed */
+      .top3-container {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        justify-content: center !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        gap: 1rem !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        align-items: flex-end !important;
+      }
+      .top3-container > div {
+        flex-shrink: 0 !important;
+      }
+      /* Fix 1st place size and alignment on mobile */
+      .top3-container > div:nth-child(2) {
+        width: 9rem !important;
+        padding: 1.25rem !important; /* slightly reduce padding */
+      }
+      .top3-container > div:nth-child(2) > div.rounded-full {
+        width: 7.5rem !important;
+        height: 7.5rem !important;
+        font-size: 4.5rem !important;
+        border-width: 4px !important;
+      }
+      .top3-container > div:nth-child(2) h3 {
+        font-size: 1.125rem !important; /* text-lg */
+        line-height: 1.25rem !important;
+      }
+      .top3-container > div:nth-child(2) p.text-yellow-600 {
+        font-size: 1.125rem !important; /* text-xl */
+        margin-top: 0.5rem !important;
+      }
+      .top3-container > div:nth-child(2) > div.absolute {
+        width: 3.5rem !important;
+        height: 3.5rem !important;
+        font-size: 1.25rem !important;
+        top: -1.75rem !important;
+      }
+      .top3-container > div:nth-child(2) > div.mt-3 {
+        font-size: 2.5rem !important;
+        margin-top: 0.75rem !important;
+      }
+    }
+  </style>
+ </head>
+ <body class="bg-gradient-to-br from-blue-100 to-blue-200 min-h-screen flex flex-col items-center font-['Roboto'] m-0">
+  <header class="w-full bg-blue-700 text-white py-5 text-center text-2xl font-bold drop-shadow-lg">
+   Club Member Portal
+  </header>
+  <nav class="w-full bg-white shadow-lg">
+   <ul class="max-w-5xl mx-auto flex flex-wrap justify-center gap-6 py-5 font-semibold text-lg relative px-4 sm:px-0">
+    <li>
+     <a class="relative group px-3 py-2 text-blue-700 hover:text-blue-900 transition-colors duration-300" href="hackathonproject.html">
+      Home
+      <span class="absolute left-0 bottom-0 w-0 h-1 bg-blue-700 transition-all group-hover:w-full rounded"></span>
+     </a>
+    </li>
+    <li>
+     <a class="relative group px-3 py-2 text-blue-700 hover:text-blue-900 transition-colors duration-300" href="upcomingEvents.html">
+      Upcoming Events
+      <span class="absolute left-0 bottom-0 w-0 h-1 bg-blue-700 transition-all group-hover:w-full rounded"></span>
+     </a>
+    </li>
+    <li>
+     <a class="relative group px-3 py-2 text-blue-900 font-bold border-b-2 border-blue-700" href="leaderboard.html">
+      Leaderboard
+      <span class="absolute left-0 bottom-0 w-full h-1 bg-blue-700 rounded"></span>
+     </a>
+    </li>
+    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-400 rounded-t-lg shadow-md"></div>
+   </ul>
+  </nav>
+  <main class="w-11/12 max-w-5xl mt-8 mb-12">
+   <!-- Points Distribution Procedure Table -->
+   <section class="bg-white rounded-xl shadow-md p-6 mb-12">
+    <h2 class="text-2xl font-bold text-blue-700 mb-6 text-center">
+     Points Distribution Procedure
+    </h2>
+    <table class="w-full text-left border-collapse text-sm sm:text-base">
+     <thead>
+      <tr class="bg-blue-100 text-blue-700 font-semibold">
+       <th class="border border-blue-300 py-3 px-3 sm:px-4">
+        Activity
+       </th>
+       <th class="border border-blue-300 py-3 px-3 sm:px-4">
+        Points Awarded
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr class="hover:bg-blue-50 transition-colors">
+       <td class="border border-blue-300 py-3 px-3 sm:px-4">
+        Winning 1st place in an event
+       </td>
+       <td class="border border-blue-300 py-3 px-3 sm:px-4">
+        Highest points awarded to the winner
+       </td>
+      </tr>
+      <tr class="hover:bg-blue-50 transition-colors bg-blue-50">
+       <td class="border border-blue-300 py-3 px-3 sm:px-4">
+        Securing 2nd place in an event
+       </td>
+       <td class="border border-blue-300 py-3 px-3 sm:px-4">
+        Slightly fewer points than 1st place
+       </td>
+      </tr>
+      <tr class="hover:bg-blue-50 transition-colors">
+       <td class="border border-blue-300 py-3 px-3 sm:px-4">
+        Securing 3rd place in an event
+       </td>
+       <td class="border border-blue-300 py-3 px-3 sm:px-4">
+        Points awarded for 3rd place finish
+       </td>
+      </tr>
+      <tr class="hover:bg-blue-50 transition-colors bg-blue-50">
+       <td class="border border-blue-300 py-3 px-3 sm:px-4">
+        Participation in events
+       </td>
+       <td class="border border-blue-300 py-3 px-3 sm:px-4">
+        Base points for active participation
+       </td>
+      </tr>
+      <tr class="hover:bg-blue-50 transition-colors">
+       <td class="border border-blue-300 py-3 px-3 sm:px-4">
+        Organizing or volunteering in events
+       </td>
+       <td class="border border-blue-300 py-3 px-3 sm:px-4">
+        Additional points for contribution
+       </td>
+      </tr>
+      <tr class="hover:bg-blue-50 transition-colors bg-blue-50">
+       <td class="border border-blue-300 py-3 px-3 sm:px-4">
+        Special achievements or recognitions
+       </td>
+       <td class="border border-blue-300 py-3 px-3 sm:px-4">
+        Bonus points awarded by committee
+       </td>
+      </tr>
+     </tbody>
+    </table>
+   </section>
+   <!-- Top 3 Celebratory Section -->
+   <section class="top3-container flex flex-wrap justify-center items-end gap-6 mb-16 max-w-5xl mx-auto px-2">
+    <!-- 2nd Place -->
+    <div class="relative bg-white rounded-2xl shadow-lg p-5 flex flex-col items-center w-36 sm:w-44 hover:scale-105 transition-transform cursor-pointer flex-shrink-0">
+     <div class="absolute -top-5 bg-gradient-to-tr from-blue-400 to-blue-600 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center text-lg shadow-lg select-none">
+      2
+     </div>
+     <div class="rounded-full mb-4 w-28 h-28 flex items-center justify-center border-4 border-blue-400 text-blue-600 font-extrabold text-4xl select-none">
+      E
+     </div>
+     <h3 class="text-blue-700 font-semibold text-base text-center leading-tight">
+      Name
+     </h3>
+     <p class="text-gray-700 font-medium text-sm">
+      Techsparks Club
+     </p>
+     <p class="text-yellow-500 font-extrabold text-lg mt-1 select-none">
+      75 Points
+     </p>
+     <div class="mt-2 text-yellow-400 text-3xl select-none">
+      <i class="fas fa-medal"></i>
+     </div>
+    </div>
+    <!-- 1st Place -->
+    <div class="relative bg-white rounded-3xl shadow-2xl p-7 flex flex-col items-center w-44 sm:w-52 hover:scale-110 transition-transform cursor-pointer flex-shrink-0">
+     <div class="absolute -top-7 bg-gradient-to-tr from-yellow-400 to-yellow-500 text-white font-extrabold rounded-full w-14 h-14 flex items-center justify-center text-xl shadow-xl select-none">
+      1
+     </div>
+     <div class="rounded-full mb-5 w-36 h-36 flex items-center justify-center border-6 border-yellow-400 text-yellow-600 font-extrabold text-6xl select-none">
+      M
+     </div>
+     <h3 class="text-yellow-600 font-bold text-lg text-center leading-tight">
+      Name
+     </h3>
+     <p class="text-gray-800 font-semibold text-sm">
+      Rotaract Club
+     </p>
+     <p class="text-yellow-600 font-extrabold text-xl mt-2 select-none">
+      100 Points
+     </p>
+     <div class="mt-3 text-yellow-500 text-4xl select-none">
+      <i class="fas fa-medal"></i>
+     </div>
+    </div>
+    <!-- 3rd Place -->
+    <div class="relative bg-white rounded-2xl shadow-lg p-5 flex flex-col items-center w-36 sm:w-44 hover:scale-105 transition-transform cursor-pointer flex-shrink-0">
+     <div class="absolute -top-5 bg-gradient-to-tr from-orange-400 to-orange-600 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center text-lg shadow-lg select-none">
+      3
+     </div>
+     <div class="rounded-full mb-4 w-28 h-28 flex items-center justify-center border-4 border-orange-400 text-orange-600 font-extrabold text-4xl select-none">
+      S
+     </div>
+     <h3 class="text-orange-600 font-semibold text-base text-center leading-tight">
+      Name
+     </h3>
+     <p class="text-gray-700 font-medium text-sm">
+      Women Empowerment
+     </p>
+     <p class="text-orange-500 font-extrabold text-lg mt-1 select-none">
+      50 Points
+     </p>
+     <div class="mt-2 text-orange-400 text-3xl select-none">
+      <i class="fas fa-medal"></i>
+     </div>
+    </div>
+   </section>
+   <!-- Rest of the Leaderboard (4th to 10th) -->
+   <section class="bg-white rounded-xl shadow-md p-6 max-w-md sm:max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold text-blue-700 mb-6 text-center">
+     Leaderboard Positions 4 to 10
+    </h2>
+    <ul class="divide-y divide-blue-200">
+     <li class="flex flex-col sm:flex-row sm:items-center justify-between py-4 hover:bg-blue-50 rounded px-3 transition-colors cursor-pointer gap-2 sm:gap-0">
+      <div class="flex items-center gap-3">
+       <div aria-label="4th place" class="text-blue-700 font-bold text-lg w-7 text-center select-none">
+        4
+       </div>
+       <div class="rounded-full w-10 h-10 flex items-center justify-center bg-blue-200 text-blue-700 font-extrabold text-lg select-none">
+        D
+       </div>
+       <div>
+        <p class="font-semibold text-blue-700 text-sm sm:text-base leading-tight">
+         Name
+        </p>
+        <p class="text-gray-600 text-xs sm:text-sm">
+         Podcast Club
+        </p>
+       </div>
+      </div>
+      <div class="text-gray-800 font-semibold select-none text-sm sm:text-base">
+       40 Points
+      </div>
+     </li>
+     <li class="flex flex-col sm:flex-row sm:items-center justify-between py-4 hover:bg-blue-50 rounded px-3 transition-colors cursor-pointer gap-2 sm:gap-0">
+      <div class="flex items-center gap-3">
+       <div aria-label="5th place" class="text-blue-700 font-bold text-lg w-7 text-center select-none">
+        5
+       </div>
+       <div class="rounded-full w-10 h-10 flex items-center justify-center bg-blue-200 text-blue-700 font-extrabold text-lg select-none">
+        A
+       </div>
+       <div>
+        <p class="font-semibold text-blue-700 text-sm sm:text-base leading-tight">
+         Name
+        </p>
+        <p class="text-gray-600 text-xs sm:text-sm">
+         Nippon Club
+        </p>
+       </div>
+      </div>
+      <div class="text-gray-800 font-semibold select-none text-sm sm:text-base">
+       35 Points
+      </div>
+     </li>
+     <li class="flex flex-col sm:flex-row sm:items-center justify-between py-4 hover:bg-blue-50 rounded px-3 transition-colors cursor-pointer gap-2 sm:gap-0">
+      <div class="flex items-center gap-3">
+       <div aria-label="6th place" class="text-blue-700 font-bold text-lg w-7 text-center select-none">
+        6
+       </div>
+       <div class="rounded-full w-10 h-10 flex items-center justify-center bg-blue-200 text-blue-700 font-extrabold text-lg select-none">
+        C
+       </div>
+       <div>
+        <p class="font-semibold text-blue-700 text-sm sm:text-base leading-tight">
+         Name
+        </p>
+        <p class="text-gray-600 text-xs sm:text-sm">
+         Vaarithi Muthamizh Club
+        </p>
+       </div>
+      </div>
+      <div class="text-gray-800 font-semibold select-none text-sm sm:text-base">
+       30 Points
+      </div>
+     </li>
+     <li class="flex flex-col sm:flex-row sm:items-center justify-between py-4 hover:bg-blue-50 rounded px-3 transition-colors cursor-pointer gap-2 sm:gap-0">
+      <div class="flex items-center gap-3">
+       <div aria-label="7th place" class="text-blue-700 font-bold text-lg w-7 text-center select-none">
+        7
+       </div>
+       <div class="rounded-full w-10 h-10 flex items-center justify-center bg-blue-200 text-blue-700 font-extrabold text-lg select-none">
+        M
+       </div>
+       <div>
+        <p class="font-semibold text-blue-700 text-sm sm:text-base leading-tight">
+         Name
+        </p>
+        <p class="text-gray-600 text-xs sm:text-sm">
+         Telugu Club
+        </p>
+       </div>
+      </div>
+      <div class="text-gray-800 font-semibold select-none text-sm sm:text-base">
+       25 Points
+      </div>
+     </li>
+     <li class="flex flex-col sm:flex-row sm:items-center justify-between py-4 hover:bg-blue-50 rounded px-3 transition-colors cursor-pointer gap-2 sm:gap-0">
+      <div class="flex items-center gap-3">
+       <div aria-label="8th place" class="text-blue-700 font-bold text-lg w-7 text-center select-none">
+        8
+       </div>
+       <div class="rounded-full w-10 h-10 flex items-center justify-center bg-blue-200 text-blue-700 font-extrabold text-lg select-none">
+        L
+       </div>
+       <div>
+        <p class="font-semibold text-blue-700 text-sm sm:text-base leading-tight">
+         Name
+        </p>
+        <p class="text-gray-600 text-xs sm:text-sm">
+         Fusion Club
+        </p>
+       </div>
+      </div>
+      <div class="text-gray-800 font-semibold select-none text-sm sm:text-base">
+       20 Points
+      </div>
+     </li>
+     <li class="flex flex-col sm:flex-row sm:items-center justify-between py-4 hover:bg-blue-50 rounded px-3 transition-colors cursor-pointer gap-2 sm:gap-0">
+      <div class="flex items-center gap-3">
+       <div aria-label="9th place" class="text-blue-700 font-bold text-lg w-7 text-center select-none">
+        9
+       </div>
+       <div class="rounded-full w-10 h-10 flex items-center justify-center bg-blue-200 text-blue-700 font-extrabold text-lg select-none">
+        N
+       </div>
+       <div>
+        <p class="font-semibold text-blue-700 text-sm sm:text-base leading-tight">
+         Name
+        </p>
+        <p class="text-gray-600 text-xs sm:text-sm">
+         Mediastic Hub
+        </p>
+       </div>
+      </div>
+      <div class="text-gray-800 font-semibold select-none text-sm sm:text-base">
+       15 Points
+      </div>
+     </li>
+     <li class="flex flex-col sm:flex-row sm:items-center justify-between py-4 hover:bg-blue-50 rounded px-3 transition-colors cursor-pointer gap-2 sm:gap-0">
+      <div class="flex items-center gap-3">
+       <div aria-label="10th place" class="text-blue-700 font-bold text-lg w-7 text-center select-none">
+        10
+       </div>
+       <div class="rounded-full w-10 h-10 flex items-center justify-center bg-blue-200 text-blue-700 font-extrabold text-lg select-none">
+        E
+       </div>
+       <div>
+        <p class="font-semibold text-blue-700 text-sm sm:text-base leading-tight">
+         Name
+        </p>
+        <p class="text-gray-600 text-xs sm:text-sm">
+         STEM
+        </p>
+       </div>
+      </div>
+      <div class="text-gray-800 font-semibold select-none text-sm sm:text-base">
+       10 Points
+      </div>
+     </li>
+    </ul>
+   </section>
+  </main>
+ </body>
+</html>
